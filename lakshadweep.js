@@ -1,3 +1,4 @@
+var database = firebase.database();
 var state = 0;
 var questionNo = 1;
 
@@ -8,10 +9,25 @@ var optB = document.getElementById("opt-B");
 var optC = document.getElementById("opt-C");
 var optD = document.getElementById("opt-D"); 
 var next = document.getElementById("next");
+var all1 = document.getElementById("all");
+var all2 = document.getElementById("all2");
+
+function setup(){
+    console.log(username);
+    sne.onclick = function(){ 
+        updateLevels(2);
+        setTimeout(function(){
+            window.location.href = "Main.html";
+        }, 1000);
+    }
+}
 
 function draw(){
-    if(questionNo == 1 || questionNo == 8 || questionNo == 11 || questionNo == 16 || questionNo == 22 || questionNo == 23){
+    draw2();
+    if(questionNo == 1 || questionNo == 8 || questionNo == 11 || questionNo == 16){
         optA.onclick = function(){
+            optA.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -22,8 +38,11 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optB.onclick = function(){
+            questionNo = null;
+            optB.onclick = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -34,8 +53,11 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optC.onclick = function(){
+            questionNo = null;
+            optC.onclick = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -46,8 +68,11 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
         }
         optD.onclick = function(){
+            questionNo = null;
+            optD.onclick = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -58,10 +83,13 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
     }
-    if(questionNo == 2 || questionNo == 5 || questionNo == 9 || questionNo == 13 || questionNo == 17 || questionNo == 24){
+    if(questionNo == 2 || questionNo == 5 || questionNo == 9 || questionNo == 13 || questionNo == 17){
         optA.onclick = function(){
+            optA.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -72,8 +100,11 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
         }
         optC.onclick = function(){
+            questionNo = null;
+            optC.onclick = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -84,8 +115,11 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optB.onclick = function(){
+            questionNo = null;
+            optB.onclick = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -96,8 +130,11 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optD.onclick = function(){
+            questionNo = null;
+            optD.onclick = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -108,10 +145,13 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
     }
-    if(questionNo == 3 || questionNo == 4 || questionNo == 6 || questionNo == 12 || questionNo == 15 || questionNo == 19 || questionNo == 21){
+    if(questionNo == 3 || questionNo == 4 || questionNo == 6 || questionNo == 12 || questionNo == 15 || questionNo == 19){
         optA.onclick = function(){
+            optA.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -122,8 +162,11 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optB.onclick = function(){
+            questionNo = null;
+            optB.onclick = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -134,8 +177,11 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
         }
         optC.onclick = function(){
+            questionNo = null;
+            optC.onclick = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -146,8 +192,11 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optD.onclick = function(){
+            questionNo = null;
+            optD.onclick = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -158,10 +207,13 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
     }
-    if(questionNo == 7 || questionNo == 10 || questionNo == 14 || questionNo == 18 || questionNo == 20){
+    if(questionNo == 7 || questionNo == 10 || questionNo == 14 || questionNo == 18){
         optA.onclick = function(){
+            optA.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -172,8 +224,11 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optB.onclick = function(){
+            questionNo = null;
+            optB.onclick = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -184,8 +239,11 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optC.onclick = function(){
+            questionNo = null;
+            optC.onclick = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -196,8 +254,11 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optD.onclick = function(){
+            questionNo = null;
+            optD.onclick = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -208,10 +269,13 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
         }
     }
-    if(questionNo == 25){
+    if(questionNo == 20){
         optA.onclick = function(){
+            optA.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -223,8 +287,11 @@ function draw(){
             state = 1;
             next.innerHTML = "Finish";
             next.style.display = "flex";
+            incorrect++;
         }
         optB.onclick = function(){
+            questionNo = null;
+            optB.onclick = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -236,8 +303,11 @@ function draw(){
             state = 1;
             next.innerHTML = "Finish";
             next.style.display = "flex";
+            incorrect++;
         }
         optC.onclick = function(){
+            questionNo = null;
+            optC.onclick = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -249,8 +319,11 @@ function draw(){
             state = 1;
             next.innerHTML = "Finish";
             next.style.display = "flex";
+            incorrect++;
         }
         optD.onclick = function(){
+            questionNo = null;
+            optD.onclick = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -262,6 +335,14 @@ function draw(){
             state = 1;
             next.innerHTML = "Finish";
             next.style.display = "flex";
+            correct++;
+        }
+        next.onclick = function(){
+            all1.style.display = "none";
+            incorrectNo.innerHTML = incorrect;
+            correctNo.innerHTML = correct;
+            resultBox.style.display = "block";
+            percentage.innerHTML = `${(correct/20)*100}%`;
         }
     }
     if(questionNo == 1){
@@ -663,112 +744,8 @@ function draw(){
             optD.innerHTML = "Sixth";
         }
     }
-    if(questionNo == 20){
-        next.onclick = function(){
-            questionNo = 21;
-            next.style.display = "none";
-            optA.style.border = "3px solid #2b9fe6";
-            optA.style.background = "#021a2a";
-            optB.style.border = "3px solid #2b9fe6";
-            optB.style.background = "#021a2a";
-            optC.style.border = "3px solid #2b9fe6";
-            optC.style.background = "#021a2a";
-            optD.style.border = "3px solid #2b9fe6";
-            optD.style.background = "#021a2a";
-            state = 0;
-            questionNumber.innerHTML = "Question 21";
-            question.innerHTML = "According to popular tradition, Islam was brought to Lakshadweep by an Arab named Ubaidulla in which AD?";
-            optA.innerHTML = "654";
-            optB.innerHTML = "661";
-            optC.innerHTML = "667";
-            optD.innerHTML = "659";
-        }
-    }
-    if(questionNo == 21){
-        next.onclick = function(){
-            questionNo = 22;
-            next.style.display = "none";
-            optA.style.border = "3px solid #2b9fe6";
-            optA.style.background = "#021a2a";
-            optB.style.border = "3px solid #2b9fe6";
-            optB.style.background = "#021a2a";
-            optC.style.border = "3px solid #2b9fe6";
-            optC.style.background = "#021a2a";
-            optD.style.border = "3px solid #2b9fe6";
-            optD.style.background = "#021a2a";
-            state = 0;
-            questionNumber.innerHTML = "Question 22";
-            question.innerHTML = "During the ______ century, the islands came under the rule of the Late Cholas.";
-            optA.innerHTML = "14ᵗʰ";
-            optB.innerHTML = "8ᵗʰ";
-            optC.innerHTML = "11ᵗʰ";
-            optD.innerHTML = "13ᵗʰ";
-        }
-    }
-    if(questionNo == 22){
-        next.onclick = function(){
-            questionNo = 23;
-            next.style.display = "none";
-            optA.style.border = "3px solid #2b9fe6";
-            optA.style.background = "#021a2a";
-            optB.style.border = "3px solid #2b9fe6";
-            optB.style.background = "#021a2a";
-            optC.style.border = "3px solid #2b9fe6";
-            optC.style.background = "#021a2a";
-            optD.style.border = "3px solid #2b9fe6";
-            optD.style.background = "#021a2a";
-            state = 0;
-            questionNumber.innerHTML = "Question 23";
-            question.innerHTML = "In the ______ century, the Portuguese ruled the seas between Ormuz and the Malabar Coast and south to Ceylon.";
-            optA.innerHTML = "14ᵗʰ";
-            optB.innerHTML = "18ᵗʰ";
-            optC.innerHTML = "16ᵗʰ";
-            optD.innerHTML = "15ᵗʰ";
-        }
-    }
-    if(questionNo == 23){
-        next.onclick = function(){
-            questionNo = 24;
-            next.style.display = "none";
-            optA.style.border = "3px solid #2b9fe6";
-            optA.style.background = "#021a2a";
-            optB.style.border = "3px solid #2b9fe6";
-            optB.style.background = "#021a2a";
-            optC.style.border = "3px solid #2b9fe6";
-            optC.style.background = "#021a2a";
-            optD.style.border = "3px solid #2b9fe6";
-            optD.style.background = "#021a2a";
-            state = 0;
-            questionNumber.innerHTML = "Question 24";
-            question.innerHTML = "As early as ______, Portuguese took control of the archipelago.";
-            optA.innerHTML = "1498";
-            optB.innerHTML = "1521";
-            optC.innerHTML = "1485";
-            optD.innerHTML = "1500";
-        }
-    }
-    if(questionNo == 24){
-        next.onclick = function(){
-            questionNo = 25;
-            next.style.display = "none";
-            optA.style.border = "3px solid #2b9fe6";
-            optA.style.background = "#021a2a";
-            optB.style.border = "3px solid #2b9fe6";
-            optB.style.background = "#021a2a";
-            optC.style.border = "3px solid #2b9fe6";
-            optC.style.background = "#021a2a";
-            optD.style.border = "3px solid #2b9fe6";
-            optD.style.background = "#021a2a";
-            state = 0;
-            questionNumber.innerHTML = "Question 25";
-            question.innerHTML = "In the ______ century, Lakshadweep came under the rule of Ali Rajahs/Arakkal Bheevi of Kanur, who received them as a gift from the Kolathiris.";
-            optA.innerHTML = "18ᵗʰ";
-            optB.innerHTML = "14ᵗʰ";
-            optC.innerHTML = "16ᵗʰ";
-            optD.innerHTML = "17ᵗʰ";
-        }
-    }
 }
+
 function reset1(){
     if(state == 0){
         optA.style.background = "#2b9fe6";

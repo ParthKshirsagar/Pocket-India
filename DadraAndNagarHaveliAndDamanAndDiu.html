@@ -15,6 +15,13 @@
         <script src="firebase.js"></script>
     </head>
     <body>
+        <div id="all2">
+            <p id="logged-out">Please log in to continue</p>
+            <a href="Login.html">
+                <button id="log-in">Log In</button>
+            </a>
+        </div>
+        <div id="all">
         <div id="question-no">Question 1</div>
         <div id="next" onmouseover="nextChange()" onmouseout="NextChange()">Next</div>
         <div id="question">Dadra and Nagar Haveli is a union territory in ______ India.</div>
@@ -22,6 +29,8 @@
         <div id="opt-B" onmouseover="reset2()" onmouseout="down2()">Eastern</div>
         <div id="opt-C" onmouseover="reset3()" onmouseout="down3()">Western</div>
         <div id="opt-D" onmouseover="reset4()" onmouseout="down4()">Northern</div>
+        </div>
+        <script src="common.js"></script>
         <script src="DadraAndNagarHaveliAndDamanAndDiu.js"></script>
     </body>
 </html>

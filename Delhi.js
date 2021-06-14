@@ -1,3 +1,4 @@
+var database = firebase.database();
 var state = 0;
 var questionNo = 0;
 var i = 0;
@@ -9,15 +10,18 @@ var optB = document.getElementById("opt-B");
 var optC = document.getElementById("opt-C");
 var optD = document.getElementById("opt-D"); 
 var next = document.getElementById("next");
+var all1 = document.getElementById("all");
+var all2 = document.getElementById("all2");
 
-var questions = ["Who was the first Lieutenant Governors of Delhi?", "Who was the first woman Cheif minister of Delhi?", "What is the Literacy percentage of Delhi?", "Is there a state located in the north, west, and south of Delhi?", "What was the old name of Delhi?", "The first Turkish ruler to introduce Arabic coinage was ________", "If you are eating parathas in Parathey Wali Gali, then you are in which area of Delhi?", "Which act declared the Union territory of Delhi to be formally known as National Capital territory of Delhi?", "Where was the first Jantar Mantar constructed?", "For 'Delhi Sultanate' what period was assigned by the Historians?", "Who was the next ruler of Delhi Sultanate after the death of Illtutmish on 30th April 1236?", "Which sultan of Delhi Sultanate was designated as sensational mixture of internal differences?", "Who was the founder of Khilji Dynasty?", "Which Sultan of Delhi Sultanate fixed the land revenue at half of the produce on the basis of paimash (measurement) in the Doab?", "Which of the following was the first dynasty to rule Delhi?", "During the Sultanate period, the chief minister was known as _____", "The founder of the Sayyid Dynasty was ______", "Who built the Red Fort (Lal Quila) in Delhi?", "The zakat was a tax which was paid by ______", "The poet was known as the “Parrot of India” was ______", "Who was the first Chief Ministers of Delhi?", "Delhi is the __________ largest urban area in the World"];
-var optAs = ["Sundar Lal Khurana", "Sushma Swaraj", "86.34%", "Haryana", "Patliputra", "Iltutmish", "Hauz Khas", "The Constitution (Sixty-ninth Amendment) Act, 1991", "At Banaras", "1206 to 1506 A.D", "Naseeruddeen Mahmud", "Mohd. Tuglaq", "Malik Firoz", "Khusru Malik", "The Lodhis", "Amil", "Khizr Khan", "Akbar", "Hindus", "Al-Beruni", "Chaudhary Brahm Prakash", "First"];
-var optBs = ["M.C. Pimputkar", "Sheila Dikshit", "85.14%", "Himachal Pradesh", "Magadh", "Amir Khusrau", "Chandni Chowk", "The Constitution (Sixth Amendment) Act, 1951", "At Mathura", "1206 to 1532 A.D", "Rajia", "Gayasuddeen Tuglaq", "Jalal-ud-din Firoz Shah", "Jalal-ud-din Firoz Shah", "The Khaljis", "Wazir", "Muhammad Shah", "Jahangir", "Muslims", "Kaiqubad", "Gurmukh Nihal Singh", "Second"];
-var optCs = ["Baleshwar Prasad", "Meira Kumar", "89.10%", "Uttarakhand", "Indraprastha", "Amir Hasan", "Sadar Bazar", "The State Legislative Act", "At Delhi", "1206 to 1536 A.D", "Ruknuddeen FirozShah", "Alauddin Khalji", "Only A", "Muhammad-bin Bakhtiyar Khilji", "The Tughlaqs", "Mufti", "Daulat Khan Lodi", "Shahjahan", "All of these", "Amir Khusrau", "Madan Lal Khurana", "Third"];
-var optDs = ["Aditya Nath Jha", "Pratibha Patil", "82.45%", "Uttar Pradesh", "Hastinapur", "None of the above", "Model Town", "The Union Territories Act", "At Ujjain", "1216 to 1558 A.D", "Shah-Turkan", "Balban", "Both A & B", "Alauddin Khilji", "The Slaves", "Nawab", "None of the above", "Aurangzeb", "None of the above", "None of the above", "Sahib Singh Verma", "Fourth"];
+var questions = ["Foundation stone of New Delhi was laid by whom in 1911?", "Qutub Minar is a Monument in New Delhi. It was build by whom?", "What is the original name of India Gate?", "Who was the architect of All India War Memorial (India Gate) in New Delhi?", "In which city the Rashtrapati Bhawan, Parliament House, and the Supreme court of India are located?", "For building the new city of Delhi, land was acquired under which act?", "Old Delhi also known as Purani Dilli construction was completed in which year?", "Which city in India was founded as a walled city named Shahajahanabad in 1639?", "Jama Masjid in Delhi was built by which Mughal Emperor in 1656?", "Delhi was converted into a union territory in which year?", "Which place is known for financial, commercial and business center in New Delhi?", "Mamluk/Slave dynasty ruled over the Delhi Sultanate in which period?", "Khalji Dynasty ruled over the Delhi Sultanate in which period?", "Tughlaq Dynasty ruled over the Delhi Sultanate in which period?", "Sayyid Dynasty ruled over the Delhi Sultanate in which period?", "Lodi Dynasty ruled over Delhi Sultanate in which period?", "In which year Delhi High Court was established?", "Who was the first Lieutenant Governor of Delhi?", "Who was the first Cheif Minister of Delhi?", "What is the total number of assembly constituencies in Delhi", "From which year Delhi Metro started its operation?", "The Delhi University was established in which year?", "Who was the first Vice-Chancellor of the Delhi University", "Who was the first woman Cheif Minister of Delhi?", "Who is the longest serving Cheif Minister of Delhi?", "Who was the first Police Commissioner of New Delhi?", "As of 2013, the per capita income of Delhi is the ______ highest in the country.", "Delhi is the ______ largest urban area in the world.", "Qutub minar complex was named after which Sufi Saint?", "What is the height of Lotus Temple in Delhi?", "Which state of India is center of the National Capital Region (NRC)", "Tomar Dynasty founded Lal Kot in Delhi in which year?", "'Red Fort' in Delhi was built in which year?", "Which river originated from Uttarakhand also flow in the Delhi?"];
+var optAs = ["George V", "Babur", "Gateway of India", "Firoz Shah Tuglak", "Patna", "Land Acquisition act 1894", "1600", "Amritsar", "Shah Jahan", "1947", "Malviya Nagar", "1300 - 1400", "1324 - 1432", "1320 - 1414", "1414 - 1430", "1451 - 1500", "1954", "Sundar Lal Khurana", "Chaudhary Brahm Prasad", "66", "2001", "1922", "Rai Bahadur Ram Kishor", "Sushma Swaraj", "Chaudhary Brahm Prasad", "J.N. Chaturvedi", "First", "First", "Khwaja Qutbuddin Bakhtiar Kaki", "30.21 m", "Madhya Pradesh", "700", "1648", "Bhilangna"];
+var optBs = ["Queen Victoria", "Qutb-ud-din Aibak", "Pride of India", "Qutb-ud-din Aibak", "New Delhi", "The Real Estate act 2016", "1732", "Old Delhi", "Akbar", "1956", "Saket", "1250 - 1385", "1290 - 1320", "1320 - 1390", "1414 - 1490", "1451 - 1524", "1962", "M.C. Pimputkar", "Gurmukh Nihal Singh", "70", "2002", "1915", "Moti Sagar", "Sheila Dikshit", "Madal Lal Khurana", "Bajrang Lal", "Second", "Second", "Mir Mukhtar Akhyar", "32.24 m", "Sikkim", "736", "1632", "Gaula"];
+var optCs = ["Edward VII", "Akbar", "Heart of India", "Edwin Lutyens", "Bhopal", "Indian Tramways act 1886", "1724", "Ghaziabad", "Babur", "2000", "Connaught Place", "1324 - 1432", "1400 - 1484", "1340 - 1442", "1414 - 1451", "1451 - 1550", "1966", "Baleshwar Prasad", "Madan Lal Khurana", "62", "2007", "1925", "Hari Singh Gour", "Meira Kumar", "Sushma Swaraj", "P.S. Bhinder", "Third", "Third", "Yuz Asaf", "34.27 m", "Punjab", "679", "1738", "Nayar"];
+var optDs = ["Henry VII", "Shah Jahan", "All India War Memorial", "Mirak Mirza Ghiyath", "Amritsar", "National Highways act 1956", "1648", "Noida", "Jahangir", "2007", "Vasant Kunj", "1206 - 1290", "1350 - 1435", "1335 - 1385", "1414 - 1470", "1451 - 1526", "1972", "Aditya Nath Jha", "Sahib Singh Verma", "58", "2008", "1933", "Maurice Gwyer", "Pratibha Patil", "Sheila Dikshit", "Arun Bhagat", "Fourth", "Fourth", "Abdur-Razzaq Nurul-Ain", "40.00 m", "Delhi", "900", "1683", "Yamuna"];
 
-console.log(questions);
+console.log(questions.length);
 function draw(){
+    draw2()
     if(i == questions.length){
         next.innerHTML = "Finish";
         next.onclick = function(){
@@ -46,7 +50,7 @@ function draw(){
                 i++;
         }
     }
-    if(questionNo == 0 || questionNo == 6 || questionNo == 10 || questionNo == 12 || questionNo == 19 || questionNo == 21 || questionNo == 23 ){
+    if(questionNo == 0 || questionNo == 5 || questionNo == 12 || questionNo == 16 || questionNo == 18 || questionNo == 24 || questionNo == 29 || questionNo == 31){
         optA.onclick = function(){
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
@@ -96,7 +100,7 @@ function draw(){
             next.style.display = "flex";
         }
     }
-    if(questionNo == 8 || questionNo == 17 || questionNo == 20){
+    if(questionNo == 3 || questionNo == 6 || questionNo == 9 || questionNo == 11 || questionNo == 14 || questionNo == 21 || questionNo == 22 || questionNo == 28 || questionNo == 33){
         optA.onclick = function(){
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
@@ -146,7 +150,7 @@ function draw(){
             next.style.display = "flex";
         }
     }
-    if(questionNo == 3 || questionNo == 4 || questionNo == 5 || questionNo == 7 || questionNo == 9 || questionNo == 11 || questionNo == 13 || questionNo == 18 || questionNo == 22){
+    if(questionNo == 2 || questionNo == 7 || questionNo == 10 || questionNo == 15 || questionNo == 20 || questionNo == 23 || questionNo == 25 || questionNo == 27 || questionNo == 30 || questionNo == 34){
         optA.onclick = function(){
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
@@ -196,7 +200,7 @@ function draw(){
             next.style.display = "flex";
         }
     }
-    if(questionNo == 2 || questionNo == 14 || questionNo == 15 || questionNo == 16){
+    if(questionNo == 4 || questionNo == 8 || questionNo == 13 || questionNo == 17 || questionNo == 19 || questionNo == 26 || questionNo == 32 || questionNo == 35){
         optA.onclick = function(){
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";

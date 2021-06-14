@@ -1,3 +1,4 @@
+var database = firebase.database();
 var state = 0;
 var questionNo = 1;
 
@@ -8,10 +9,28 @@ var optB = document.getElementById("opt-B");
 var optC = document.getElementById("opt-C");
 var optD = document.getElementById("opt-D"); 
 var next = document.getElementById("next");
+var all1 = document.getElementById("all");
+var all2 = document.getElementById("all2");
+
+function setup(){
+    console.log(username);
+    sne.onclick = function(){ 
+        updateLevels(3);
+        setTimeout(function(){
+            window.location.href = "Main.html";
+        }, 1000);
+    }
+}
 
 function draw(){
+    draw2()
     if(questionNo == 1 || questionNo == 4 || questionNo == 8 || questionNo == 9 || questionNo == 14 || questionNo == 22 || questionNo == 23){
         optA.onclick = function(){
+            questionNo = null;
+            optA.onclick = function(){};
+            optB.onclick = function(){};
+            optC.onclick = function(){};
+            optD.onclick = function(){};
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -20,10 +39,16 @@ function draw(){
             optB.style.background = "#5ecc26";
             optD.style.border = "3px solid #CC9E88";
             optD.style.background = "#CC9E88";
-            state = 1;
+            state = 1;  
             next.style.display = "flex";
+            incorrect++;
         }
         optB.onclick = function(){
+            questionNo = null;
+            optB.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -34,8 +59,14 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
         }
         optC.onclick = function(){
+            questionNo = null;
+            optC.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -46,8 +77,14 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optD.onclick = function(){
+            questionNo = null;
+            optD.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -58,10 +95,16 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
     }
     if(questionNo == 2 || questionNo == 5 || questionNo == 10 || questionNo == 13 || questionNo == 16 || questionNo == 17){
         optA.onclick = function(){
+            questionNo = null;
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -72,8 +115,14 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optB.onclick = function(){
+            questionNo = null;
+            optB.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -84,8 +133,14 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optC.onclick = function(){
+            questionNo = null;
+            optC.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -96,8 +151,14 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++
         }
         optD.onclick = function(){
+            questionNo = null;
+            optD.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -108,10 +169,16 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
     }
     if(questionNo == 3 || questionNo == 6 || questionNo == 11 || questionNo == 12 || questionNo == 18 || questionNo == 21 || questionNo == 24){
         optA.onclick = function(){
+            questionNo = null;
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -122,8 +189,14 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
         }
         optC.onclick = function(){
+            questionNo = null;
+            optC.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -134,8 +207,14 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optB.onclick = function(){
+            questionNo = null;
+            optB.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -146,8 +225,14 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optD.onclick = function(){
+            questionNo = null;
+            optD.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -158,10 +243,16 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
     }
-    if(questionNo == 7 || questionNo == 15 || questionNo == 19 || questionNo == 20 || questionNo == 25){
+    if(questionNo == 7 || questionNo == 15 || questionNo == 19 || questionNo == 20){
         optA.onclick = function(){
+            questionNo = null;
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -172,8 +263,14 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optB.onclick = function(){
+            questionNo = null;
+            optB.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -184,8 +281,14 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optC.onclick = function(){
+            questionNo = null;
+            optC.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -196,8 +299,14 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
         }
         optD.onclick = function(){
+            questionNo = null;
+            optD.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -208,6 +317,95 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+        }
+    }
+    if(questionNo == 25){
+        optA.onclick = function(){
+            questionNo = null;
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optC.style.border = "3px solid #CC9E88";
+            optC.style.background = "#CC9E88";
+            optA.style.background = "#CC9E88";
+            optA.style.border = "3px solid #CC9E88";
+            optD.style.border = "3px solid #5ecc26";
+            optD.style.background = "#5ecc26";
+            optB.style.border = "3px solid #CC9E88";
+            optB.style.background = "#CC9E88";
+            state = 1;
+            next.style.display = "flex";
+            incorrect++;
+        }
+        optB.onclick = function(){
+            questionNo = null;
+            optB.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optC.style.border = "3px solid #CC9E88";
+            optC.style.background = "#CC9E88";
+            optA.style.background = "#CC9E88";
+            optA.style.border = "3px solid #CC9E88";
+            optD.style.border = "3px solid #5ecc26";
+            optD.style.background = "#5ecc26";
+            optB.style.border = "3px solid #CC9E88";
+            optB.style.background = "#CC9E88";
+            state = 1;
+            next.style.display = "flex";
+            incorrect++;
+        }
+        optC.onclick = function(){
+            questionNo = null;
+            optC.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optC.style.border = "3px solid #CC9E88";
+            optC.style.background = "#CC9E88";
+            optA.style.background = "#CC9E88";
+            optA.style.border = "3px solid #CC9E88";
+            optD.style.border = "3px solid #5ecc26";
+            optD.style.background = "#5ecc26";
+            optB.style.border = "3px solid #CC9E88";
+            optB.style.background = "#CC9E88";
+            state = 1;
+            next.style.display = "flex";
+            incorrect++;
+        }
+        optD.onclick = function(){
+            questionNo = null;
+            optD.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optA.onclick = function(){};
+            optC.style.border = "3px solid #CC9E88";
+            optC.style.background = "#CC9E88";
+            optA.style.background = "#CC9E88";
+            optA.style.border = "3px solid #CC9E88";
+            optD.style.border = "3px solid #5ecc26";
+            optD.style.background = "#5ecc26";
+            optB.style.border = "3px solid #CC9E88";
+            optB.style.background = "#CC9E88";
+            state = 1;
+            next.style.display = "flex";
+            correct++;
+        }
+        next.innerHTML = "Finish";
+        next.onclick = function(){
+            all1.style.display = "none";
+            incorrectNo.innerHTML = incorrect;
+            correctNo.innerHTML = correct;
+            resultBox.style.display = "block";
+            if(correct == 7){
+                percentage.innerHTML = "28%";
+            }
+            else{
+                percentage.innerHTML = `${(correct/25)*100}%`;
+            }
+            
         }
     }
     if(questionNo == 1){
