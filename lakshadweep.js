@@ -11,22 +11,41 @@ var optD = document.getElementById("opt-D");
 var next = document.getElementById("next");
 var all1 = document.getElementById("all");
 var all2 = document.getElementById("all2");
+var level = 1;
 
 function setup(){
+    getLevels();
     console.log(username);
-    sne.onclick = function(){ 
-        updateLevels(2);
-        setTimeout(function(){
-            window.location.href = "Main.html";
-        }, 1000);
-    }
 }
 
 function draw(){
     draw2();
+    if(correct != 0 && userLevels == 1){
+        sne.onclick = function(){
+            updateLevels(2);
+            setTimeout(function(){
+                window.location.href = "Main.html";
+            }, 1000);
+        }
+    }
+    if(userLevels > 1 && correct != null){
+        sne.onclick = function(){
+            setTimeout(function(){
+                window.location.href = "Main.html";
+            }, 1000);
+        }
+    }
+    if(correct == 0){
+        sne.onclick = function(){
+            alert("Your correct score has to be at least one to move on to the next level.");
+        }
+    }
     if(questionNo == 1 || questionNo == 8 || questionNo == 11 || questionNo == 16){
         optA.onclick = function(){
             optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
             questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
@@ -39,10 +58,14 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
             optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -54,10 +77,14 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
+            optB.onclick = null;
             optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -69,10 +96,14 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             correct++;
+            correctAudio.play();
         }
         optD.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
             optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -84,11 +115,15 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 2 || questionNo == 5 || questionNo == 9 || questionNo == 13 || questionNo == 17){
         optA.onclick = function(){
             optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
             questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
@@ -101,10 +136,14 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             correct++;
+            correctAudio.play();
         }
         optC.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
+            optB.onclick = null;
             optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -116,10 +155,14 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
             optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -131,10 +174,14 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
             optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -146,11 +193,15 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 3 || questionNo == 4 || questionNo == 6 || questionNo == 12 || questionNo == 15 || questionNo == 19){
         optA.onclick = function(){
             optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
             questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
@@ -163,10 +214,14 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
             optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -178,10 +233,14 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             correct++;
+            correctAudio.play();
         }
         optC.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
+            optB.onclick = null;
             optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -193,10 +252,14 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
             optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -208,11 +271,15 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 7 || questionNo == 10 || questionNo == 14 || questionNo == 18){
         optA.onclick = function(){
             optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
             questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
@@ -225,10 +292,14 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
             optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -240,10 +311,14 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
+            optB.onclick = null;
             optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -255,10 +330,14 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
             optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -270,11 +349,15 @@ function draw(){
             state = 1;
             next.style.display = "flex";
             correct++;
+            correctAudio.play();
         }
     }
     if(questionNo == 20){
         optA.onclick = function(){
             optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
             questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
@@ -288,10 +371,14 @@ function draw(){
             next.innerHTML = "Finish";
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
             optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -304,10 +391,14 @@ function draw(){
             next.innerHTML = "Finish";
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
+            optB.onclick = null;
             optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -320,10 +411,14 @@ function draw(){
             next.innerHTML = "Finish";
             next.style.display = "flex";
             incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
-            questionNo = null;
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
             optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -336,13 +431,14 @@ function draw(){
             next.innerHTML = "Finish";
             next.style.display = "flex";
             correct++;
+            correctAudio.play();
         }
         next.onclick = function(){
             all1.style.display = "none";
             incorrectNo.innerHTML = incorrect;
             correctNo.innerHTML = correct;
             resultBox.style.display = "block";
-            percentage.innerHTML = `${(correct/20)*100}%`;
+            percentage.innerHTML = `${Math.round((correct/20)*100)}%`;
         }
     }
     if(questionNo == 1){

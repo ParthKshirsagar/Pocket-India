@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Pocket India</title>
+        <link rel="shortcut icon" href="India.png">
         <script src="p5.js"></script>
         <script src="p5.dom.min.js"></script>
         <script src="p5.sound.min.js"></script>
@@ -15,10 +16,28 @@
         <script src="firebase.js"></script>
     </head>
     <body>
+        <div id="result">
+            <div id="result-interior">
+                <h1>Result</h1>
+                <h3 id="correct">Correct <span id="colon1">:</span> <span id="correct-no"></span></h3>
+                <h3 id="incorrect">Incorrect <span id="colon2">:</span> <span id="incorrect-no"></span></h3>
+                <h3 id="overall">Overall%<span id="colon3">:</span> <span id="percentage"></span></h3>
+                <a href="" id="a">
+                <button id="retry">Retry</button>
+                </a>
+                <button id="sne">Save & Exit</button>
+            </div>
+        </div>
         <div id="all2">
             <p id="logged-out">Please log in to continue</p>
             <a href="Login.html">
                 <button id="log-in">Log In</button>
+            </a>
+        </div>
+        <div id="all3">
+            <p id="mainPage">Please complete the previous levels first</p>
+            <a href="Main.html">
+                <button id="main">Back</button>
             </a>
         </div>
         <div id="all">

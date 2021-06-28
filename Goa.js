@@ -12,19 +12,49 @@ var optD = document.getElementById("opt-D");
 var next = document.getElementById("next");
 var all1 = document.getElementById("all");
 var all2 = document.getElementById("all2");
+var level = 9;
 
 var questions = ["In which year, portuguese defeated the Bijapur sultan, Yousuf Adil Shah?", "Who was the sixth CM of Goa?", "Who was the third CM of Goa?", "On which date was Goa recognised as a state?", "Who was the first Cheif Justice of Goa?", "Who was the first Governor of Goa?", "How long was the tenure of Laxmikant Parsekar?", "Which one is the state bird of Goa?", "Which one is the state tree of Goa?", "Which one is the state animal of Goa?", "Who is the current DGP of Goa?", "Who is the current Governor of Goa?", "Who is the current Cheif Minister of Goa?", "What is the literacy rate of Goa (Since 2011)?", "In which year the Operation Vijay was conducted resulting in the annexation of Goa?", "In which year was Goa recognised as a state?", "Which one is the largest city by areawise in Goa?", "The first Konkani film 'Mogacho Anvddo' was released in which year?", "Which one is the official language of Goa?", "What was the name of the Indian Army Operation conducted to release Goa from Portuguese rule?", "What is the total number of districts in Goa?", "Which one is the highest peak in Goa?", "Who was the first CM of Goa?", "Which one is the largest church in Goa?", "In which year, the Portuguese moved the capital from Old Goa to Panjim?", "Which one is the longest beach in Goa?", "What is the total number of Rajya Sabha seats in Goa?", "What is the total number of Lok Sabha seats in Goa?", "Which of the following is a primary industry in Goa?"];
 var optAs = ["1755", "Ravi S. Naik", "Churchill Alemao", "June 30 1986", "P.D Desai", "Lt. Gen. K. Bahadur Singh", "1 year, 156 days", "Bastar hill Myna", "Terminalia Elliptica", "Blackbuck", "Sanjay Kumar, IPS", "Bhagat Singh Koshyari", "Digambar Kamat", "88.70%", "1987", "1956", "Ponda", "1945", "Marathi", "Operation Goa", "7", "Sonsogar", "Gopal Hari Deshmukh", "Se Cathedral", "1834", "Palolem Beach", "1", "3", "Textiles"];
 var optBs = ["1510", "Wilfred de Souza", "Pratapsingh Rane", "July 26 1991", "P.C.B. Menon", "Maj. Gen. K. S. Himmatsinhji", "5 years, 216 days", "House Sparrow", "Sacred Fig", "Asiatic Lion", "Sudhir Yadav", "Mridula Sinha", "Pramod Sawant", "95.70%", "1972", "1982", "Vasco da Gama", "1933", "English", "Operation Thunder", "2", "Braganza Ghats", "Jyotiba Phule", "Shakuntala Paranjape", "1840", "Colava Beach", "4", "6", "Pharma"];
 var optCs = ["1911", "Luizinho Faleiro", "Luis Proto Barbosa", "May 30 1987", "Dalveer Bhandari", "Sh. Om Prakash", "2 years, 136 days", "Grey-headed bulbul", "Chinar", "Gaur", "Dr. Muktesh Chander", "Om Prakash Kohli", "Manohar Parrikar", "75.65%", "1961", "1964", "Panaji", "1942", "Konkani", "Operation Polo", "4", "Vagheri Peak", "Dayanand Bandodkar", "Durga Bhagawat", "1843", "Anjuna Beach", "2", "2", "Liqour"];
 var optDs = ["None of these", "None of these", "None of these", "None of these", "M.H. Beg", "Sh. Bhagawan Sahay", "None of these", "Yellow-throated bulbul", "None of these", "None of these", "Mukesh Kumar Meena", "Margaret Alva", "Lakshmikant Parsekar", "None of these", "1977", "1987", "Margao", "1950", "Hindi", "Operation Vijay", "5", "None of these", "Luis Proto Barbosa", "Church of St Cajetan", "1856", "Vagator Beach", "7", "9", "Tourism"];
-console.log(questions.length)
+
+function setup(){
+    getLevels();
+    console.log(username);
+}
+
 function draw(){
-    draw2()
+    draw2();
+    if(correct != 0 && userLevels == 9){
+        sne.onclick = function(){
+            updateLevels(10);   
+            setTimeout(function(){
+                window.location.href = "Main.html";
+            }, 1000);
+        }
+    }
+    if(userLevels > 9 && correct != null){
+        sne.onclick = function(){
+            setTimeout(function(){
+                window.location.href = "Main.html";
+            }, 1000);
+        }
+    }
+    if(correct == 0){
+        sne.onclick = function(){
+            alert("Your correct score has to be at least one to move on to the next level.");
+        }
+    }
     if(i == questions.length){
         next.innerHTML = "Finish";
         next.onclick = function(){
-            console.log("congrats");
+            all1.style.display = "none";
+            incorrectNo.innerHTML = incorrect;
+            correctNo.innerHTML = correct;
+            resultBox.style.display = "block";
+            percentage.innerHTML = `${Math.round((correct/30)*100)}%`;
         }
     }
     if(i<questions.length){
@@ -51,6 +81,11 @@ function draw(){
     }
     if(questionNo == 5 || questionNo == 8 || questionNo == 11 || questionNo == 16 || questionNo == 20 || questionNo == 24 || questionNo == 26 || questionNo == 29){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -61,8 +96,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -73,8 +115,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -85,8 +134,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -97,10 +153,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 0 || questionNo == 3 || questionNo == 10 || questionNo == 13 || questionNo == 15 || questionNo == 23 || questionNo == 25 || questionNo == 28){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -111,8 +174,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -123,8 +193,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -135,8 +212,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -147,10 +231,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 2 || questionNo == 4 || questionNo == 7 || questionNo == 14 || questionNo == 18 || questionNo == 22 || questionNo == 27){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -161,8 +252,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -173,8 +271,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -185,8 +290,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -197,10 +309,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 6 || questionNo == 9 || questionNo == 12 || questionNo == 17 || questionNo == 19 || questionNo == 21 || questionNo == 30){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -211,8 +330,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -223,8 +349,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -235,8 +368,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -247,6 +387,8 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
     }
 }

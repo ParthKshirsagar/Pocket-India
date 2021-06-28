@@ -12,21 +12,49 @@ var optD = document.getElementById("opt-D");
 var next = document.getElementById("next");
 var all1 = document.getElementById("all");
 var all2 = document.getElementById("all2");
+var level = 24;
 
 var questions = ["Which Country is comparable with the size of West Bengal?", "When was West Bengal established as a Separate Indian State?", "Since when was Mamata Banerjee appointed as the Chief Minister of West Bengal?", "Who was the first Chief Minister of West Bengal after West Bengal was formed as an Indian State?", "What is the Official Language of West Bengal?", "What is the State Flower of West Bengal?", "What Rank does West Bengal holds in the list of Largest State by Area in India?", 'What is the area of West Bengal?', "How many Countries do West Bengal shares its border with?", "How many states do West Bengal shares its border with?", "What is the Pin Code of Murshidabad?", "When did the Battle of Plassey take place?", "Which Country was known as East Bengal?", "What is the State Tree of West Bengal?", "What is the Capital of West Bengal?", "What is the IATA of Netaji Subhas Chandra Bose International Airport?", "Who was the first Governor of West Bengal?", "Who is the Longest Serving Chief Minister of West Bengal?", "Who is the Shortest Serving Chief Minister of West Bengal?", "Which town is located near the eastern bank of Hoogly River?", "When was the First President’s Rule imposed in West Bengal?", "How many times President’s Rule was imposed in West Bengal?", "How many seats are in the Legislature of West Bengal?", "Which Political Party is in Power in West Bengal?", "How many Lok Sabha Seats are in West Bengal?", "How many Rajya Sabha Seats are in West Bengal?", "When was the Calcutta High Court established?", "What is the State Fish of West Bengal?", "What is the State Bird of West Bengal?", "What is the State Mammal of West Bengal?", "When did the “West Bengal Legislative Assembly” pass a resolution to change the name of West Bengal to “Bengal” in English and “Bangla” in Bengali?", "When was the Treaty between the “East India Company” and the “Mughal Emperor” signed?", "Which Governor took Office from 2019 in West Bengal?", "When did the Battle of Buxar take place?", "When did the Great Bengal Famine take place?", "When was “East Bengal” renamed as “East Pakistan”?", "Which is the Highest Peak in West Bengal?", "Which river flows under the Howrah Bridge?", "Which River is known as the “Sorrow of Bengal”?"];
 var optAs = ["Honduras", "26 January 1948", "2012", "Prafulla Chandra Ghosh", "Bengali", "Night-blooming Jasmine", "14th", "90,752 km²", "1 Country", "5 States", "741251", "1737", "Bangladesh", "Agar Tree", "Burdwan", "CCU", "Dharma Vira", "Buddhadeb Bhattacharya", "Siddhartha Shankar Ray", "Khili", "20 February 1977", "2 Times", "42 Seats", "CPI-M", "18 Seats", "28 Seats", "1 July 1962", "Catla", "Bastar Hill Myna", "Wild Water Buffalo", "August 2016", "August 12, 1735", "Keshari Nath Tripathi", "1764", "1769 – 1773", "1947", "Falut", "Teesta River", "Teesta River"];
 var optBs = ["Hungary", "26 January 1949", "2011", "Bidhan Chandra Roy", "English", "Night-flowering Jasmine", "12th", "88,752 km²", "4 Countries", "4 States", "742142", "1747", "Pakistan", "Chatim Tree", "Howrah", "ICAO", "Kailash Nath Katju", "Jyoti Basu", "Prafulla Chandra Ghosh", "Itor", "20 February 1970", "4 Times", "294 Seats", "BJP", "16 Seats", "14 Seats", "1 July 1862", "Kajuli", "Great Hornbill", "Fishing Cat", "August 2015", "August 12, 1745", "M.K. Narayanan", "1774", "1769 – 1771", "1956", "Rachela Danda", "Horah River", "Damodar River"];
 var optCs = ["Serbia", "26 January 1950", "2013", "Ajoy Kumar Mukherjee", "Bengali & English", "Frangipani", "8th", "85,752 km²", "2 Countries", "2 States", "742149", "1757", "Nepal", "Banyan Tree", "Siliguri", "CAL", "Chakravarthi Rajagopalachari", "Bidhan Chandra Roy", "Ajoy Kumar Mukherjee", "Murshidabad", "20 February 1969", "3 Times", "216 Seats", "INC", "42 Seats", "16 Seats", "1 July 1942", "Ilish", "White-throated kingfisher", "Blackbuck", "August 2014", "August 12, 1765", "Jagdeep Dhankhar", "1784", "1769 – 1770", "1955", "Sabargram", "Hooghly River", "Hooghly River"];
 var optDs = ["Scotland", "26 January 1952", "2010", "Prafulla Chandra Sen", "Bengali & Hindi", "Bougainvillea", "10th", "83,752 km²", "3 Countries", "3 States", "743145", "1767", "China", "Ashoka Tree", "Kolkata", "KOL", "Saiyid Nurul Hasan", "Siddhartha Shankar Ray", "Bidhan Chandra Roy", "Nagara", "20 February 1968", "None", "46 Seats", "AITC", "46 Seats", "18 Seats", "1 July 1842", "Rohu", "Asian Koel", "Nilgiri Tahr", "August 2017", "August 12, 1755", "Gopalkrishna Gandhi", "1794", "1767 – 1771", "1971", "Sandakphu", "Damodar River", "Mahananda River"];
-console.log(questions.length);
-console.log(optAs.length, optBs.length, optCs.length, optDs.length);
+
+function setup(){
+    getLevels();
+    console.log(username);
+}
 
 function draw(){
-    draw2()
+    draw2();
+    if(correct != 0 && userLevels == 24){
+        sne.onclick = function(){
+            updateLevels(25);
+            setTimeout(function(){
+                window.location.href = "Main.html";
+            }, 1000);
+        }
+    }
+    if(userLevels > 24 && correct != null){
+        sne.onclick = function(){
+            setTimeout(function(){
+                window.location.href = "Main.html";
+            }, 1000);
+        }
+    }
+    if(correct == 0){
+        sne.onclick = function(){
+            alert("Your correct score has to be at least one to move on to the next level.");
+        }
+    }
     if(i == questions.length){
         next.innerHTML = "Finish";
         next.onclick = function(){
-            console.log("congrats");
+            all1.style.display = "none";
+            incorrectNo.innerHTML = incorrect;
+            correctNo.innerHTML = correct;
+            resultBox.style.display = "block";
+            percentage.innerHTML = `${Math.round((correct/40)*100)}%`;
         }
     }
     if(i<questions.length){
@@ -53,6 +81,11 @@ function draw(){
     }
     if(questionNo == 2 || questionNo == 3 || questionNo == 6 || questionNo == 12 || questionNo == 13 || questionNo == 18 || questionNo == 21 || questionNo == 26 || questionNo == 27 || questionNo == 29 || questionNo == 30 || questionNo == 33 || questionNo == 34 || questionNo == 37 || questionNo == 39){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -63,8 +96,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -75,8 +115,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -87,8 +134,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -99,10 +153,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 4 || questionNo == 5 || questionNo == 7 || questionNo == 9 || questionNo == 15 || questionNo == 19 || questionNo == 20 || questionNo == 23 || questionNo == 24 || questionNo == 28 || questionNo == 31 || questionNo == 36 || questionNo == 40){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -113,8 +174,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -125,8 +193,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -137,8 +212,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -149,10 +231,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 10 || questionNo == 16 || questionNo == 22 || questionNo == 25 || questionNo == 38){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -163,8 +252,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -175,8 +271,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -187,8 +290,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -199,10 +309,17 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
     }
     if(questionNo == 0 || questionNo == 8 || questionNo == 11 || questionNo == 14 || questionNo == 17 || questionNo == 32 || questionNo == 35){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -213,8 +330,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -225,8 +349,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -237,8 +368,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -249,6 +387,8 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
 }

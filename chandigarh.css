@@ -92,13 +92,20 @@ canvas{
     left: 690px;
     top: -35px;
 }
-#logged-out{
+#mainPage{
     color: #fff;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     cursor: default;
+    margin: 20% auto;
+    text-align: center;
+}
+#logged-out{
+    color: #fff;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', s0ns-serif;
+    cursor: default;
     margin: 165% 0;
 }
-#log-in{
+#log-in,#main{
     width: 80px;
     height: 25px;
     position: absolute;
@@ -111,6 +118,10 @@ canvas{
     outline: none;
 }
 #all2{
+    display: none;
+}
+
+#all3{
     display: none;
 }
 

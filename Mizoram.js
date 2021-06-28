@@ -12,21 +12,49 @@ var optD = document.getElementById("opt-D");
 var next = document.getElementById("next");
 var all1 = document.getElementById("all");
 var all2 = document.getElementById("all2");
+var level = 13;
 
 var questions = ["What is the state Animal of Mizoram?", "What is the state Bird of Mizoram?", "What is the state Tree of Mizoram?", "What is the state Flower of Mizoram?", "What is the capital of Mizoram?", "How many states do Mizoram shares its Border?", "Which states does Mizoram shares its border?", "When did Mizoram become a Union Territory?", "When did Mizoram gain its statehood?", "How many Districts are in Mizoram?", "Which 3 Districts of Mizoram became operational after 3rd June 2019?", "How many Countries does Mizoram shares its border?", "Until when was Mizoram part of Assam?", "What is the State position of Mizoram in terms of the Statehood list?", "What is the Area of Mizoram?", "Which Country is comparable with the size of Mizoram?", "Which state is larger in Size as compared to Mizoram?", "How many Members of the Legislative Assembly (MLAs) does the Mizoram Legislative Assembly have?", "Who became the Speaker of the “Mizoram Legislative Assembly” in 2018?", "Who is the current Deputy Speaker of the “Mizoram Legislative Assembly” in 2021?", "Who was the Chief Minister of Mizoram before Shri Zoramthanga?", "Since 1972 how many people have served as the Chief Minister of Mizoram?", "Who is the longest-serving Chief Minister of Mizoram?", "Who is the first Chief Minister of Mizoram?", "How many times President’s Rule was imposed in Mizoram?", "Which Political Party does Chief Minister Zoramthanga belongs to?", "How many Rajya Sabha seats do Mizoram have?", "How many Lok Sabha seats do Mizoram have?", "Who was the first First Governor of Mizoram after Mizoram got its Statehood?"];
 var optAs = ["Serow", "Green Imperial Pigeon", "Phoebe Hainesiana", "Rhynchostylis Retusa", "Lunglei", "2", "Assam, Meghalaya, and Tripura", "21 January 1972", "20 February 1967", "8", "Hnahthial, Lawngtlai, and Saitual", "1", "1972", "22nd", "17,081 km²", "Saint Lucia", "Manipur", "32", "R. Romawia", "Lalrinawma", "Lalduhawma", "Seven", "Zoramthanga", "T. Sailo", "Three", "Communist Party of India", "3", "3", "H.S. Dubey"];
 var optBs = ["Sangai", "Common Hill Myna", "Aquilaria Malaccensis", "Red Vanda", "Aizawl", "3", "Assam, Arunachal Pradesh, and Tripura", "21 January 1982", "20 February 1977", "9", "Hnahthial, Khawzawl, and Saitual", "2", "1976", "23rd", "21,081 km²", "Lebanon", "Tripura", "36", "Lalrinliana Sailo", "H Biakzaua", "Laldenga", "Four", "Lal Thanhawla", "C. Chhunga", "Four", "Indian National Congress", "1", "2", "Hiteswar Saikia"];
 var optCs = ["Germain’s Langur", "Mrs. Hume’s Pheasant", "Indian Rose Chestnut", "Aerides Odorata", "Lawngtlai", "4", "Assam, Manipur, and Meghalaya", "21 January 1977", "20 February 1987", "11", "Hnahthial, Mamit, and Saitual", "3", "1982", "24th", "23,081 km²", "El Salvador", "Sikkim", "40", "Tawnluia", "Lalrindika Ralte", "Lal Thanhawla", "Five", "T. Sailo", "Lal Thanhawla", "Two", "Bharatiya Janata Party", "2", "1", "Capt W. A. Sangma"];
 var optDs = ["Clouded Leopard", "Blyth’s Tragopan", "Dipterocarpus Retusus", "Lilium Mackliniae", "Champhai", "1", "Assam, Manipur, and Tripura", "21 January 1987", "20 February 1992", "7", "Hnahthial, Khawzawl, and Serchhip", "4", "1984", "25th", "27,081 km²", "Slovenia", "Goa", "44", "Lal Thanhawla", "Tj Lalnuntluanga", "T. Sailo", "Nine", "Laldenga", "Laldenga", "One", "Mizo National Front", "None", "None", "A. Padmanabhan"];
-console.log(questions.length + 1);
-console.log(optAs.length, optBs.length, optCs.length, optDs.length);
+
+function setup(){
+    getLevels();
+    console.log(username);
+}
 
 function draw(){
-    draw2()
+    draw2();
+    if(correct != 0 && userLevels == 13){
+        sne.onclick = function(){
+            updateLevels(14);
+            setTimeout(function(){
+                window.location.href = "Main.html";
+            }, 1000);
+        }
+    }
+    if(userLevels > 13 && correct != null){
+        sne.onclick = function(){
+            setTimeout(function(){
+                window.location.href = "Main.html";
+            }, 1000);
+        }
+    }
+    if(correct == 0){
+        sne.onclick = function(){
+            alert("Your correct score has to be at least one to move on to the next level.");
+        }
+    }
     if(i == questions.length){
         next.innerHTML = "Finish";
         next.onclick = function(){
-            console.log("congrats");
+            all1.style.display = "none";
+            incorrectNo.innerHTML = incorrect;
+            correctNo.innerHTML = correct;
+            resultBox.style.display = "block";
+            percentage.innerHTML = `${Math.round((correct/30)*100)}%`;
         }
     }
     if(i<questions.length){
@@ -53,6 +81,11 @@ function draw(){
     }
     if(questionNo == 0 || questionNo == 3 || questionNo == 4 || questionNo == 10 || questionNo == 11 || questionNo == 17 || questionNo == 19 || questionNo == 22 || questionNo == 23 || questionNo == 29){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -63,8 +96,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -75,8 +115,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -87,8 +134,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -99,10 +153,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 5 || questionNo == 6 || questionNo == 7 || questionNo == 12 || questionNo == 13 || questionNo == 15 || questionNo == 16 || questionNo == 20 || questionNo == 24 || questionNo == 25 || questionNo == 28 || questionNo == 30){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -113,8 +174,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -125,8 +193,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -137,8 +212,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -149,10 +231,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 8 || questionNo == 27){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -163,8 +252,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -175,8 +271,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -187,8 +290,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -199,10 +309,17 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
     }
     if(questionNo == 2 || questionNo == 9 || questionNo == 14 || questionNo == 18 || questionNo == 21 || questionNo == 26){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -213,8 +330,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -225,8 +349,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -237,8 +368,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -249,6 +387,8 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
 }

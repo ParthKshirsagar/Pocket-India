@@ -15,6 +15,11 @@ function setup(){
 }
 
 function draw(){
+    if(hyperlink != null){
+        hyperlink.onclick = function(){
+            sessionStorage.setItem("username", username.value);
+        }
+    }
     if(allUsers != []){
         for(var i in allUsers){
             if(allUsers[i].name == username.value && allUsers[i].password == password.value){

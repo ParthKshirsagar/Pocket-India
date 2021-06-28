@@ -12,21 +12,49 @@ var optD = document.getElementById("opt-D");
 var next = document.getElementById("next");
 var all1 = document.getElementById("all");
 var all2 = document.getElementById("all2");
+var level = 36;
 
 var questions = ["What is the total area of Rajasthan?", "Which country is comparable to the size of Rajasthan?", "Which is the largest state in India?", "What is the Official Language of Rajasthan?", "Which desert is located in Rajasthan?", "Which direction is the desert located in Rajasthan?", "Which Province of Pakistan is located on the West of Rajasthan?", "Which Province of Pakistan is located in the North-West of Rajasthan?", "What is the other Popular name of Thar Desert?", "How many Indian States does Rajasthan shares its border?", "Which latitude passes through Rajasthan?", "Which ruins of Civilisation are located at Kalibangan and Balathal?", "Which is the only hill station of Rajasthan?", "Between Which States is the Mouth Abu located?", "What is the State Heritage Animal of Rajasthan?", "What is the State Tree of Rajasthan?", "What is the State Flower of Rajasthan?", "What is the State Bird of Rajasthan?", "What is the State Dance of Rajasthan?", "How many world heritage sites are in Rajasthan?", "How many National Tiger Reserves are in Rajasthan?", "What is the Capital of Rajasthan?", "When was Jaipur State formed?", "Which is the largest city of Rajasthan?", "How many Divisions are in Rajasthan?", "How many Districts are in Rajasthan?", "Which is the Largest District of Rajasthan?", "Which is the Smallest District of Rajasthan?", "Which is the most Populated District of Rajasthan?", "Which is the least Populated District of Rajasthan?", "Who was the first Chief Minister of Rajasthan?", "Who was the first Female Chief Minister of Rajasthan?", "Who is the shortest-serving Chief Minister of Rajasthan?", "Who is the longest-serving Chief Minister of Rajasthan?", "Which political party did Heera Lal Shastri belong to?", "When did the first Chief Minister of Rajasthan serve the office?", "How many Chief Ministers of Rajasthan were elected until 2021?", "Which Chief Minister of Rajasthan went on to serve as the 11th Vice President of India?", "Who was the first Non-Congress Chief Minister of Rajasthan?", "How many seats are in Rajasthan Legislative Assembly?", "How many seats does Rajasthan have in the Rajya Sabha?", "How many seats does Rajasthan have in the Lok Sabha?", "Which Chief Minister was elected on 17 December 2018 (third tenure)?", "Who is the present Governor of Rajasthan as of 2021?", "Who was the first Governor of Rajasthan?", "Who is the Speaker of the Rajasthan Legislative Assembly (2021)?", "Who was the first speaker of the Rajasthan Legislative Assembly?", "Out of 200 Seats, How many seats are occupied by the Indian National Congress in the 15th Assembly?", "How many constituencies are in Rajasthan?"];
 var optAs = ["242,239 km²", "Oman", "Rajasthan", "Hindi", "Gobi Desert", "North", "Gilgistan", "Punjab", 'Calm Desert', "5 States", "The Equator", "Harappan Civilization", "Jogimatti", "Rajasthan & Gujarat", "Chinkara", "Jammi Chettu", "Indian Roller", "Emerald Dove", "Mundari", "4 Sites", "Three", "Jodhpur", "30 March 1948", "Udaipur", "7 Divisions", "33 Districts", "Jaipur District", "Rajsamand District", "Udaipur District", "Tonk District", "Jai Narayan Vyas", "Vasundhara Joshi", "Barkatullah Khan", "Vasundhara Raje", "Indian National Congress", "7 April 1947", "13 Chief Ministers", "Hari Dev Joshi", "Jagannath Pahadia", "156", "15 Seats", "25 Seats", "Hari Dev Joshi", "Ram Naik", "Maharaj Man Singh II", "Sumitra Singh", "Niranjan Nath Acharya", "104 Seats", "196 Constituencies"];
 var optBs = ["342,239 km²", "Italy", "Andhra Pradesh", "Rajasthani", "Thar Desert", "West", "Baltistan", "Baltistan", "Great Indian Desert", "4 States", "The Tropic of Cancer", "Incan Civilization", "Paithal Mala", "Rajasthan & Madhya Pradesh", "Musk Deer", "Palm Tree", "Imperial Pigeon", "Indian Roller", "Ghoomar", "6 Sites", "Two", "Jaipur", "30 March 1949", "Jodhpur", "9 Divisions", "27 Districts", "Bikaner District", "Dholpur District", "Alwar District", "Pratapgarh District", "Tika Ram Paliwal", "Vasundhara Raje", "Jagannath Pahadia", "Mohan Lal Sukhadia", "Janata Party", "7 April 1948", "14 Chief Ministers", "Bhairon Singh Shekhawat", "Barkatullah Khan", "125", "10 Seats", "20 Seats", "Bhairon Singh Shekhawat", "Kalraj Mishra", "Sardar Hukam Singh", "C. P. Joshi", "Ram Niwas Mirdha", "105 Seats", "156 Constituencies"];
 var optCs = ["442,239 km²", "Syria", "Uttar Pradesh", "English", "Sahara Desert", "South", "Sindh", "Balochistan", "Silk Desert", "7 States", "The Tropic of Capricorn", "Mesopotamia", "Mount Abu", "Rajasthan & Punjab", "Camel", "Khejri", "Sarus Crane", "Godawan", "Bhangra", "8 Sites", "Four", "Ajmer", "30 March 1951", "Jaipur", "11 Divisions", "30 Districts", "Jaisalmer District", "Dungarpur District", "Barmer District", "Jaisalmer District", "Heera Lal Shastri", "Vasundhara Vyas", "C. S. Venkatachari", "Shiv Charan Mathur", "Bharatiya Janata Party", "7 April 1949", "15 Chief Ministers", "Jagannath Pahadia", "Shiv Charan Mathur", "196", "07 Seats", "15 Seats", "Vasundhara Raje", "Prabha Rau", "Gurumukh Nihal Singh", "Deependra Singh Shekhawat", "Narottam Lal Joshi", "107 Seats", "104 Constituencies"];
 var optDs = ["542,239 km²", "Germany", "Madhya Pradesh", "Marwari", "Kalahari Desert", "East", "Balochistan", "Gilgistan", "Death Valley", "3 States", "The Arctic Circle", "Indus Valley Civilization", "Wilson Hills", "Rajasthan & Haryana", "Spotted Deer", "Rhododendron", "Rohida", "Blood Pheasant", "Powada", "3 Sites", "One", "Kota", "30 March 1952", "Bikaner", "6 Divisions", "35 Districts", "Nagaur District", "Kota District", "Jaipur District", "Bundi District", "C. S. Venkatachari", "Vasundhara Shastri", "Hira Lal Devpura", "Bhairon Singh Shekhawat", "Nationalist Congress Party", "7 April 1950", "16 Chief Ministers", "Ashok Gehlot", "Bhairon Singh Shekhawat", "200", "03 Seats", "17 Seats", "Ashok Gehlot", "Kalyan Singh", "Sardar Jogendra Singh", "Kailash Chandra Meghwal", "Ram Kishore Vyas", "102 Seats", "200 Constituencies"];
-console.log(questions.length);
-console.log(optAs.length, optBs.length, optCs.length, optDs.length);
+
+function setup(){
+    getLevels();
+    console.log(username);
+}
 
 function draw(){
-    draw2()
+    draw2();
+    if(correct != 0 && userLevels == 36){
+        sne.onclick = function(){
+            updateLevels(37);
+            setTimeout(function(){
+                window.location.href = "Main.html";
+            }, 1000);
+        }
+    }
+    if(userLevels > 36 && correct != null){
+        sne.onclick = function(){
+            setTimeout(function(){
+                window.location.href = "Main.html";
+            }, 1000);
+        }
+    }
+    if(correct == 0){
+        sne.onclick = function(){
+            alert("Your correct score has to be at least one to move on to the next level.");
+        }
+    }
     if(i == questions.length){
         next.innerHTML = "Finish";
         next.onclick = function(){
-            console.log("congrats");
+            all1.style.display = "none";
+            incorrectNo.innerHTML = incorrect;
+            correctNo.innerHTML = correct;
+            resultBox.style.display = "block";
+            percentage.innerHTML = `${Math.round((correct/50)*100)}%`;
         }
     }
     if(i<questions.length){
@@ -53,6 +81,11 @@ function draw(){
     }
     if(questionNo == 8 || questionNo == 32 || questionNo == 14 || questionNo == 16 || questionNo == 17 || questionNo == 19 || questionNo == 25 || questionNo == 28 || questionNo == 31 || questionNo == 37 || questionNo == 48){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -63,8 +96,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -75,8 +115,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -87,8 +134,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -99,10 +153,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 2 || questionNo == 6 || questionNo == 7 || questionNo == 10 || questionNo == 12 || questionNo == 20 || questionNo == 23 || questionNo == 24 || questionNo == 29 || questionNo == 33 || questionNo == 35 || questionNo == 39 || questionNo == 42 || questionNo == 45 || questionNo == 47){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -113,8 +174,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -125,8 +193,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -137,8 +212,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -149,10 +231,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 3 || questionNo == 13 || questionNo == 34 || questionNo == 18 || questionNo == 30 || questionNo == 40 || questionNo == 41 || questionNo == 44 || questionNo == 50){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -163,8 +252,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -175,8 +271,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -187,8 +290,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -199,10 +309,17 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
     }
     if(questionNo == 0 || questionNo == 4 || questionNo == 5 || questionNo == 9 || questionNo == 11 || questionNo == 15 || questionNo == 21 || questionNo == 22 || questionNo == 26 || questionNo == 27 || questionNo == 36 || questionNo == 38 || questionNo == 43 || questionNo == 46 || questionNo == 49){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -213,8 +330,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -225,8 +349,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -237,8 +368,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -249,6 +387,8 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
 }

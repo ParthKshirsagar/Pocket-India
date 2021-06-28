@@ -12,6 +12,7 @@ var optD = document.getElementById("opt-D");
 var next = document.getElementById("next");
 var all1 = document.getElementById("all");
 var all2 = document.getElementById("all2");
+var level = 8;
 
 var questions = ["Which is the largest Union Territory in India", "Which one is a cold desert of India?", "Which one is the summer capital of Ladakh?", "Which one is the winter capital of Ladakh?", "What is the name of the most important river in Ladakh?", "What are the official languages of Ladakh?", "Which range surround Ladakh in the North?", "Which range surround Ladakh in the South?", "Which is the highest mountain in Ladakh?", "Which is the Highest motorable road in the World?", "Which is the Second Highest motorable road in the World?", "How many districts are there in Ladakh?", "What is the area of Ladakh?", "Which is the highest inhabited region in Ladakh?", "What is the name of the largest lake in Ladakh?", "What is the lenght of Pangong Lake?", "What is the name of High Court of Ladakh?", "Which is the largest town in Ladakh?", "Which is the highest town in Ladakh?", "When did Ladakh became a union territory?", "Which is the largest circulated newspaper of Ladakh", "Which is the domestic airport of Ladakh?", "What is the name of the first University of Ladakh?", "Who is the first governor of Ladakh?", "When were Elections held for the first time in Ladakh?", "How many seats does Ladakh have in Legislative Assembly?", "Which is the World's highest salt water lake?", "Which chemical element was found in Ladakh?", "Which Article is related to the making of Ladakh a Union Territory?", "Which country surrounds Ladakh?", "What was Ladakh before Union Territory?", "Which river is called the backbone of Ladakh?", "What is the elevation of Likir Monastery?", "Which lake in Ladakh shares border with China?"];
 var optAs = ["Ladakh", "Atacama Desert", "Kargil", "Leh", "Indus River", "Kashmiri,English", "Himalayas", "Aravali Range", "Stok Kangri", "Shyok - DBO", "Namika La", "10", "57,384 km²", "Kargil", "Pangong Lake", "124 km", "Punjab High Court", "Leh", "Kargil", "2020", "Times of India", "Jammu Airport", "University of Ladakh", "Shri Praful Patel", "2000", "10", "Pangong Lake", "Arsenic", "Article 324", "China", "Part of China", "Tso Kar", "3,000 m", "Pangong Tso Lake"];
@@ -19,12 +20,41 @@ var optBs = ["Chandigarh", "Ladakh", "Markha Valley", "Kargil", "Shyok River", "
 var optCs = ["Puducherry", "Gobi Desert", "Leh", "Nubra Valley", "Zanskar River", "Hindi,English", "Zanskar Range", "Karakoram Range", "Nun", "Khardung La", "Lungalacha La", "2", "52,738 km²", "Nubra Valley", "Tso Kar", "143 km", "Uttarakhand High Court", "Karzok", "Karzok", "2017", "Hindustan Times", "Kushok Bakula Rimpochhe Airport", "Baba Ghulam Shah Badhah University", "Shri Manoj Sinha", "1995", "11", "Bangong Co", "Americium", "Article 240", "Pakistan", "Part of Jammu & Kashmir", "Tso Moriri", "2,500 m", "Mirpal Tso"];
 var optDs = ["Jammu & Kashmir", "Great Basin", "Nubra Valley", "Markha Valley", "Suru River", "Marathi,Gujrati", "Karakoram Range", "Pir Panjal Range", "K12", "Harong - Chushul", "Taglang La", "8", "61,284 km²", "Rangdum", "Kyagar Tso", "134 km", "Sikkim High Court", "Stok", "Kargil", "2015", "Daily Excelsior", "Srinagar Airport", "The Cluster University of Jammu", "Shir Radha Krishna Mathur", "2007", "9", "Tso Kar", "Uranium", "Article 364", "Afghanistan", "Parth of Pakistan", "Chagar Tso", "3,700 m", "Tso Kar"];
 
+function setup(){
+    getLevels();
+    console.log(username);
+}
+
 function draw(){
-    draw2()
+    draw2();
+    if(correct != 0 && userLevels == 8){
+        sne.onclick = function(){
+            updateLevels(9);
+            setTimeout(function(){
+                window.location.href = "Main.html";
+            }, 1000);
+        }
+    }
+    if(userLevels > 8 && correct != null){
+        sne.onclick = function(){
+            setTimeout(function(){
+                window.location.href = "Main.html";
+            }, 1000);
+        }
+    }
+    if(correct == 0){
+        sne.onclick = function(){
+            alert("Your correct score has to be at least one to move on to the next level.");
+        }
+    }
     if(i == questions.length){
         next.innerHTML = "Finish";
         next.onclick = function(){
-            console.log("congrats");
+            all1.style.display = "none";
+            incorrectNo.innerHTML = incorrect;
+            correctNo.innerHTML = correct;
+            resultBox.style.display = "block";
+            percentage.innerHTML = `${Math.round((correct/35)*100)}%`;
         }
     }
     if(i<questions.length){
@@ -51,6 +81,11 @@ function draw(){
     }
     if(questionNo == 4 || questionNo == 7 || questionNo == 11 || questionNo == 13 || questionNo == 20 || questionNo == 23 || questionNo == 26 || questionNo == 30 || questionNo == 32){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -61,8 +96,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -73,8 +115,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -85,8 +134,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -97,10 +153,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 2 || questionNo == 6 || questionNo == 10 || questionNo == 16 || questionNo == 19 || questionNo == 24 || questionNo == 28 || questionNo == 31 || questionNo == 35){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -111,8 +174,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -123,8 +193,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -135,8 +212,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -147,10 +231,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 3 || questionNo == 5 || questionNo == 9 || questionNo == 14 || questionNo == 18 || questionNo == 21 || questionNo == 27 || questionNo == 33){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -161,8 +252,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -173,8 +271,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -185,8 +290,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -197,10 +309,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 0 || questionNo == 8 || questionNo == 12 || questionNo == 15 || questionNo == 17 || questionNo == 22 || questionNo == 25 || questionNo == 29 || questionNo == 34){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -211,8 +330,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -223,8 +349,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -235,8 +368,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -247,6 +387,8 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
     }
 }

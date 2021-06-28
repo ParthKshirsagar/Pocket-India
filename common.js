@@ -6,8 +6,11 @@ var sne = document.getElementById("sne");
 var retry = document.getElementById("retry")
 var incorrectNo = document.getElementById("incorrect-no");
 var correctNo = document.getElementById("correct-no");
+var all3 = document.getElementById("all3");
 var correct = 0;
 var incorrect = 0;
+var correctAudio = new Audio('Correct2.wav');
+var wrong = new Audio('Wrong.mp3');
 
 function draw2(){
     if(username == null || username == "default"){
@@ -20,6 +23,15 @@ function draw2(){
     }
     else{
         all2.style.display = "none";
+    }
+    if(username != null){
+        if(userLevels != null){
+            if(userLevels < level){
+                document.body.style.backgroundColor = "#C54545";
+                all1.style.display = "none";
+                all3.style.display = "block";
+            }
+        }
     }
 }
 

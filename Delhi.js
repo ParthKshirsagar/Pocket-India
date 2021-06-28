@@ -12,6 +12,7 @@ var optD = document.getElementById("opt-D");
 var next = document.getElementById("next");
 var all1 = document.getElementById("all");
 var all2 = document.getElementById("all2");
+var level = 5;
 
 var questions = ["Foundation stone of New Delhi was laid by whom in 1911?", "Qutub Minar is a Monument in New Delhi. It was build by whom?", "What is the original name of India Gate?", "Who was the architect of All India War Memorial (India Gate) in New Delhi?", "In which city the Rashtrapati Bhawan, Parliament House, and the Supreme court of India are located?", "For building the new city of Delhi, land was acquired under which act?", "Old Delhi also known as Purani Dilli construction was completed in which year?", "Which city in India was founded as a walled city named Shahajahanabad in 1639?", "Jama Masjid in Delhi was built by which Mughal Emperor in 1656?", "Delhi was converted into a union territory in which year?", "Which place is known for financial, commercial and business center in New Delhi?", "Mamluk/Slave dynasty ruled over the Delhi Sultanate in which period?", "Khalji Dynasty ruled over the Delhi Sultanate in which period?", "Tughlaq Dynasty ruled over the Delhi Sultanate in which period?", "Sayyid Dynasty ruled over the Delhi Sultanate in which period?", "Lodi Dynasty ruled over Delhi Sultanate in which period?", "In which year Delhi High Court was established?", "Who was the first Lieutenant Governor of Delhi?", "Who was the first Cheif Minister of Delhi?", "What is the total number of assembly constituencies in Delhi", "From which year Delhi Metro started its operation?", "The Delhi University was established in which year?", "Who was the first Vice-Chancellor of the Delhi University", "Who was the first woman Cheif Minister of Delhi?", "Who is the longest serving Cheif Minister of Delhi?", "Who was the first Police Commissioner of New Delhi?", "As of 2013, the per capita income of Delhi is the ______ highest in the country.", "Delhi is the ______ largest urban area in the world.", "Qutub minar complex was named after which Sufi Saint?", "What is the height of Lotus Temple in Delhi?", "Which state of India is center of the National Capital Region (NRC)", "Tomar Dynasty founded Lal Kot in Delhi in which year?", "'Red Fort' in Delhi was built in which year?", "Which river originated from Uttarakhand also flow in the Delhi?"];
 var optAs = ["George V", "Babur", "Gateway of India", "Firoz Shah Tuglak", "Patna", "Land Acquisition act 1894", "1600", "Amritsar", "Shah Jahan", "1947", "Malviya Nagar", "1300 - 1400", "1324 - 1432", "1320 - 1414", "1414 - 1430", "1451 - 1500", "1954", "Sundar Lal Khurana", "Chaudhary Brahm Prasad", "66", "2001", "1922", "Rai Bahadur Ram Kishor", "Sushma Swaraj", "Chaudhary Brahm Prasad", "J.N. Chaturvedi", "First", "First", "Khwaja Qutbuddin Bakhtiar Kaki", "30.21 m", "Madhya Pradesh", "700", "1648", "Bhilangna"];
@@ -19,13 +20,41 @@ var optBs = ["Queen Victoria", "Qutb-ud-din Aibak", "Pride of India", "Qutb-ud-d
 var optCs = ["Edward VII", "Akbar", "Heart of India", "Edwin Lutyens", "Bhopal", "Indian Tramways act 1886", "1724", "Ghaziabad", "Babur", "2000", "Connaught Place", "1324 - 1432", "1400 - 1484", "1340 - 1442", "1414 - 1451", "1451 - 1550", "1966", "Baleshwar Prasad", "Madan Lal Khurana", "62", "2007", "1925", "Hari Singh Gour", "Meira Kumar", "Sushma Swaraj", "P.S. Bhinder", "Third", "Third", "Yuz Asaf", "34.27 m", "Punjab", "679", "1738", "Nayar"];
 var optDs = ["Henry VII", "Shah Jahan", "All India War Memorial", "Mirak Mirza Ghiyath", "Amritsar", "National Highways act 1956", "1648", "Noida", "Jahangir", "2007", "Vasant Kunj", "1206 - 1290", "1350 - 1435", "1335 - 1385", "1414 - 1470", "1451 - 1526", "1972", "Aditya Nath Jha", "Sahib Singh Verma", "58", "2008", "1933", "Maurice Gwyer", "Pratibha Patil", "Sheila Dikshit", "Arun Bhagat", "Fourth", "Fourth", "Abdur-Razzaq Nurul-Ain", "40.00 m", "Delhi", "900", "1683", "Yamuna"];
 
-console.log(questions.length);
+function setup(){
+    getLevels();
+    console.log(username);
+}
+
 function draw(){
-    draw2()
+    draw2();
+    if(correct != 0 && userLevels == 5){
+        sne.onclick = function(){
+            updateLevels(6);
+            setTimeout(function(){
+                window.location.href = "Main.html";
+            }, 1000);
+        }
+    }
+    if(userLevels > 5 && correct != null){
+        sne.onclick = function(){
+            setTimeout(function(){
+                window.location.href = "Main.html";
+            }, 1000);
+        }
+    }
+    if(correct == 0){
+        sne.onclick = function(){
+            alert("Your correct score has to be at least one to move on to the next level.");
+        }
+    }
     if(i == questions.length){
         next.innerHTML = "Finish";
         next.onclick = function(){
-            console.log("congrats");
+            all1.style.display = "none";
+            incorrectNo.innerHTML = incorrect;
+            correctNo.innerHTML = correct;
+            resultBox.style.display = "block";
+            percentage.innerHTML = `${Math.round((correct/35)*100)}%`;
         }
     }
     if(i<questions.length){
@@ -52,6 +81,11 @@ function draw(){
     }
     if(questionNo == 0 || questionNo == 5 || questionNo == 12 || questionNo == 16 || questionNo == 18 || questionNo == 24 || questionNo == 29 || questionNo == 31){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -62,8 +96,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -74,8 +115,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -86,8 +134,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optA.style.border = "3px solid #CC9E88";
             optA.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -98,10 +153,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 3 || questionNo == 6 || questionNo == 9 || questionNo == 11 || questionNo == 14 || questionNo == 21 || questionNo == 22 || questionNo == 28 || questionNo == 33){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -112,8 +174,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -124,8 +193,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -136,8 +212,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -148,10 +231,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 2 || questionNo == 7 || questionNo == 10 || questionNo == 15 || questionNo == 20 || questionNo == 23 || questionNo == 25 || questionNo == 27 || questionNo == 30 || questionNo == 34){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -162,8 +252,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -174,8 +271,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -186,8 +290,15 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optB.style.background = "#CC9E88";
@@ -198,10 +309,17 @@ function draw(){
             optD.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
     }
     if(questionNo == 4 || questionNo == 8 || questionNo == 13 || questionNo == 17 || questionNo == 19 || questionNo == 26 || questionNo == 32 || questionNo == 35){
         optA.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -212,8 +330,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optB.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -224,8 +349,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optC.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -236,8 +368,15 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            incorrect++;
+            wrong.play();
         }
         optD.onclick = function(){
+            optA.onclick = null;
+            optB.onclick = null;
+            optC.onclick = null;
+            optD.onclick = null;
+            questionNo = null;
             optC.style.border = "3px solid #CC9E88";
             optC.style.background = "#CC9E88";
             optA.style.background = "#CC9E88";
@@ -248,6 +387,8 @@ function draw(){
             optB.style.background = "#CC9E88";
             state = 1;
             next.style.display = "flex";
+            correct++;
+            correctAudio.play();
         }
     }
 }

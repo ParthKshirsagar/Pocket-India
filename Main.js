@@ -85,6 +85,7 @@ var button33a = document.getElementById("33a");
 var button34a = document.getElementById("34a");
 var button35a = document.getElementById("35a");
 var button36a = document.getElementById("36a");
+var state = 0;
 
 function setup(){
     console.log(username);
