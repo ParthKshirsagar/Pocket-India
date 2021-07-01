@@ -29,6 +29,32 @@ function setup(){
 
 function draw(){
     names = username.value;
+    if(hre!=null){
+        hre.onclick = function(){
+            if(username.value == 0){
+                document.getElementById("exclamation").style.display = "block";
+            }
+            if(password.value == 0){
+                warning1.style.display = "block";
+            }
+            if(password2.value != password.value && password2.value != null && password.value != 0){
+                warning2.style.display = "block";
+            }
+            for(var i in allUsers){
+                if(allUsers[i].name != username.value && alert2.style.display == "none" && password2.value == password.value && password2.value != 0 && password.value != 0 && username.value != 0){
+                    var index = "Users/" + username.value;
+                    database.ref(index).update({
+                        'name': names,
+                        'password': password1.value,
+                        'levels': 1
+                    });
+                    userCount += 1;
+                    updateUserCount(userCount);
+                    break;
+                }   
+            }
+        }
+    }
     nameArr = names.split("");
     if(allUsers!=[]){
     for(var i in allUsers){
